@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — Taskist</title>
+<meta name="description" content="How Taskist treats your data — short version: it stays on your device unless you opt in to sync." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="logo" href="/">
+      <span class="logo__mark">T</span>
+      <span>Taskist</span>
+    </a>
+    <nav class="site-nav">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:support@taskist.pro">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<article class="article">
+  <p class="article__eyebrow">Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: 18 May 2026</p>
+
+  <p>This policy describes what Taskist ("the app", "we") collects, how it uses
+  that information, and the choices you have. It applies to the Taskist mobile
+  app on Google Play and the App Store.</p>
+
+  <div class="callout">
+    <p><strong>TL;DR.</strong> Your tasks, lists, notes, and habits stay on your device
+    unless you choose to sign in for cloud sync. Taskist has no ads, no analytics,
+    no third-party tracking. AI features and voice transcription are opt-in.</p>
+  </div>
+
+  <h2>What Taskist stores on your device</h2>
+  <p>When you use Taskist, the following stay locally on your phone in an
+  encrypted-at-rest SQLite database managed by the operating system:</p>
+  <ul>
+    <li>Tasks, lists, notes, subtasks, tags, attachments</li>
+    <li>Habits, streaks, and completion history</li>
+    <li>Focus / Pomodoro session preferences</li>
+    <li>App settings (theme, language, notification preferences, etc.)</li>
+    <li>Onboarding state, AI usage counters</li>
+  </ul>
+  <p>You can export this data at any time via <strong>Settings → Integrations &amp;
+  Import → Export</strong>, or wipe it by uninstalling the app or clearing app
+  storage in Android Settings.</p>
+
+  <h2>What we send to third parties — and why</h2>
+  <p>Taskist contacts the internet <strong>only when you opt in</strong> to a feature that
+  needs it.</p>
+
+  <h3>Cloud sync (optional, off by default)</h3>
+  <p>If you sign in via <strong>Settings → Sign In</strong>, Taskist syncs your tasks to
+  Supabase servers so you can access them across devices. We store only the
+  task content you create — no contacts, no location, no analytics. You can
+  sign out and delete your cloud data from inside the app at any time.</p>
+
+  <h3>AI features (optional, off by default)</h3>
+  <p>If you enable AI features in <strong>Settings → AI Assistant</strong>, Taskist sends
+  short pieces of text (e.g. a phrase you typed in Quick Add, a list of your
+  overdue tasks for re-scheduling) to the Google Gemini API. We send the
+  minimum context needed to fulfil your request and never include credentials,
+  contacts, or unrelated data. Google's terms apply to data sent to Gemini.</p>
+
+  <h3>Voice add-task (optional)</h3>
+  <p>When you tap the microphone icon, Android's system speech recognizer
+  captures audio on-device and sends it to Google's speech-to-text service for
+  transcription. Taskist does not record, store, or upload raw audio itself —
+  only the text Google returns to us. The microphone permission is requested
+  only when you use this feature.</p>
+  <p>If you turn on "AI Mode" in the voice screen, the resulting transcript is
+  then sent to Gemini for multi-task extraction. A consent dialog asks for
+  your agreement the first time.</p>
+
+  <h3>Subscriptions</h3>
+  <p>In-app subscriptions and the lifetime plan are processed by Google Play
+  Billing. Purchase receipts are validated through RevenueCat, which gives us
+  your entitlement status (Pro / Free) but no payment details. We never see or
+  store your credit card.</p>
+
+  <h3>Calendar integration (optional)</h3>
+  <p>If you enable "Local Calendar Notifications" in
+  <strong>Settings → Sounds &amp; Notifications</strong>, Taskist will read from and write
+  to your device's local calendar. No calendar data leaves the device.</p>
+
+  <h2>What Taskist does NOT do</h2>
+  <ul>
+    <li>We do <strong>not</strong> sell your data.</li>
+    <li>We do <strong>not</strong> include advertising or ad SDKs.</li>
+    <li>We do <strong>not</strong> track which screens you visit, how long you use the app, or which features you use.</li>
+    <li>We do <strong>not</strong> access your contacts, location, photos, or other apps' data.</li>
+    <li>We do <strong>not</strong> scan your tasks for keywords, ads, or behavioural targeting.</li>
+  </ul>
+
+  <h2>Permissions we request and why</h2>
+  <table>
+    <thead>
+      <tr><th>Permission</th><th>Used for</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Internet</td><td>Cloud sync, AI features, subscription validation</td></tr>
+      <tr><td>Microphone</td><td>Voice add-task (only when you tap the mic)</td></tr>
+      <tr><td>Notifications</td><td>Reminders for tasks and habits</td></tr>
+      <tr><td>Calendar</td><td>Optional sync of task reminders to your local calendar</td></tr>
+      <tr><td>Exact alarm / Wake</td><td>Precise reminder delivery on Android 12+</td></tr>
+      <tr><td>Foreground service / Overlay</td><td>Quick Ball floating shortcut (off by default)</td></tr>
+      <tr><td>Receive boot completed</td><td>Re-scheduling reminders after device restart</td></tr>
+      <tr><td>Vibrate</td><td>Optional vibration on notification</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Children</h2>
+  <p>Taskist is a productivity tool for general audiences. It is not directed at
+  children under 13 and we do not knowingly collect data from them.</p>
+
+  <h2>Your rights</h2>
+  <ul>
+    <li><strong>Access:</strong> All your local data is on your device — open the app to view it.</li>
+    <li><strong>Export:</strong> Settings → Integrations &amp; Import.</li>
+    <li><strong>Delete (local):</strong> Uninstall the app, or clear app data in Android Settings.</li>
+    <li><strong>Delete (cloud):</strong> If you're signed in for cloud sync, Settings → Sign In → Delete account.</li>
+    <li><strong>Disable AI:</strong> Settings → AI Assistant → toggle off.</li>
+    <li><strong>EU / California residents:</strong> You have additional rights to access, correct, and delete personal data under GDPR / CCPA. Contact us at the email below to exercise them.</li>
+  </ul>
+
+  <h2>Changes to this policy</h2>
+  <p>If we materially change what we collect or how we use it, we will update
+  this page and bump the "Last updated" date. Continued use after a change
+  means you accept the new policy.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, concerns, or data requests:</p>
+  <ul>
+    <li>Email: <a href="mailto:support@taskist.pro">support@taskist.pro</a></li>
+    <li>App: Settings → Help &amp; Support</li>
+  </ul>
+</article>
+
+<footer class="site-footer">
+  <div class="site-footer__links">
+    <a href="/">Home</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:support@taskist.pro">Contact</a>
+  </div>
+  <div class="site-footer__copy">© 2026 Taskist. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
