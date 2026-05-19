@@ -9,198 +9,6 @@
 <meta property="og:description" content="The to-do app that thinks with you." />
 <meta property="og:type" content="website" />
 <link rel="stylesheet" href="style.css" />
-<style>
-  /* ── Inline page-specific styles ────────────────────────────── */
-
-  /* Hero split — copy on the left, phone mockup on the right. */
-  .hero { text-align: left; padding-top: clamp(56px, 9vw, 96px); }
-  .hero__inner {
-    max-width: var(--container);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: center;
-  }
-  .hero__copy h1 { margin-left: 0; margin-right: 0; max-width: 620px; }
-  .hero__copy .lead { margin-left: 0; margin-right: 0; max-width: 540px; }
-  .hero__copy .cta-row { justify-content: flex-start; }
-  .hero__copy .store-badges { justify-content: flex-start; }
-  @media (max-width: 880px) {
-    .hero { text-align: center; }
-    .hero__inner { grid-template-columns: 1fr; }
-    .hero__copy h1, .hero__copy .lead { margin-left: auto; margin-right: auto; }
-    .hero__copy .cta-row,
-    .hero__copy .store-badges { justify-content: center; }
-    .phone { margin: 0 auto; }
-  }
-
-  /* ── Phone mockup (pure CSS / SVG) ───────────────────────────── */
-  .phone {
-    width: min(360px, 100%);
-    aspect-ratio: 360 / 720;
-    background: var(--bg-card);
-    border-radius: 44px;
-    box-shadow:
-      0 40px 80px -20px rgba(15, 23, 42, 0.20),
-      0 16px 40px -8px rgba(37, 99, 235, 0.18),
-      inset 0 0 0 1.5px var(--border);
-    padding: 14px;
-    position: relative;
-    overflow: hidden;
-    transform: rotate(-2deg);
-    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
-  }
-  .phone:hover { transform: rotate(0deg) translateY(-4px); }
-  .phone::before {
-    /* Dynamic Island / notch */
-    content: "";
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    width: 92px;
-    height: 24px;
-    background: #0B1024;
-    border-radius: 20px;
-    transform: translateX(-50%);
-    z-index: 3;
-  }
-  .phone__screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
-    padding: 48px 18px 16px;
-    overflow: hidden;
-    position: relative;
-  }
-  .phone__date {
-    color: var(--text-soft);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    margin: 0 4px 4px;
-  }
-  .phone__title {
-    color: var(--text-strong);
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin: 0 4px 14px;
-  }
-  .phone__list {
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .phone__task {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    font-size: 13.5px;
-    color: var(--text);
-    box-shadow: var(--shadow-xs);
-  }
-  .phone__check {
-    width: 18px; height: 18px;
-    border-radius: 6px;
-    border: 1.8px solid var(--blue-300);
-    flex: 0 0 18px;
-    position: relative;
-  }
-  .phone__task--done .phone__check {
-    background: var(--primary);
-    border-color: var(--primary);
-  }
-  .phone__task--done .phone__check::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: white;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 12px 12px;
-            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 12px 12px;
-  }
-  .phone__task--done .phone__label { text-decoration: line-through; color: var(--text-soft); }
-  .phone__pill {
-    margin-left: auto;
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: var(--radius-full);
-    background: var(--blue-50);
-    color: var(--blue-700);
-  }
-  .phone__pill--red { background: #FEE2E2; color: #B91C1C; }
-  .phone__pill--green { background: #DCFCE7; color: #166534; }
-  .phone__mic {
-    position: absolute;
-    right: 22px; bottom: 22px;
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-    display: grid; place-items: center;
-    box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.55);
-  }
-  .phone__mic svg { width: 24px; height: 24px; color: white; }
-
-  /* ── App store badges ────────────────────────────────────────── */
-  .store-badges {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
-  }
-  .badge-store {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    height: 56px;
-    padding: 0 22px 0 18px;
-    background: #0B1024;
-    color: white;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    text-align: left;
-  }
-  .badge-store:hover {
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
-  }
-  .badge-store svg { width: 26px; height: 26px; flex: 0 0 26px; }
-  .badge-store__text { display: flex; flex-direction: column; line-height: 1.1; }
-  .badge-store__text .small { font-size: 10.5px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.85; text-transform: uppercase; }
-  .badge-store__text .big { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-top: 1px; }
-  .badge-store[aria-disabled="true"] { cursor: default; }
-
-  /* ── Flat icon tiles for features ────────────────────────────── */
-  .icon-tile {
-    width: 52px; height: 52px;
-    border-radius: 14px;
-    display: grid; place-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
-  }
-  .icon-tile svg { width: 24px; height: 24px; color: white; }
-  .icon-tile--blue   { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
-  .icon-tile--indigo { background: linear-gradient(135deg, #6366F1, #4338CA); }
-  .icon-tile--sky    { background: linear-gradient(135deg, #38BDF8, #0284C7); }
-  .icon-tile--violet { background: linear-gradient(135deg, #8B5CF6, #6D28D9); }
-  .icon-tile--cyan   { background: linear-gradient(135deg, #22D3EE, #0E7490); }
-  .icon-tile--rose   { background: linear-gradient(135deg, #6B7BFF, #2563EB); }
-
-  /* Section helper */
-  .grid-3 {
-    max-width: var(--container);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-</style>
 </head>
 <body>
 
@@ -213,8 +21,8 @@
     <nav class="site-nav">
       <a class="nav-hide-mobile" href="#features">Features</a>
       <a class="nav-hide-mobile" href="#pricing">Pricing</a>
+      <a class="nav-hide-mobile" href="#faq">FAQ</a>
       <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
       <a class="nav-cta" href="#download">Get the app</a>
     </nav>
   </div>
@@ -223,6 +31,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero__inner">
+
     <div class="hero__copy">
       <span class="eyebrow">
         <span class="eyebrow__dot"></span>
@@ -231,8 +40,8 @@
       <h1>Your day, <span class="accent">finally on track</span>.</h1>
       <p class="lead">
         Speak a sentence, get a structured to-do list. Sync it with your
-        calendar, get reminded at the right moment, and let AI quietly handle
-        the boring parts — all in one beautifully calm app.
+        calendar, get reminded at exactly the right moment, and let AI quietly
+        handle the boring parts — all in one beautifully calm app.
       </p>
 
       <div id="download" class="store-badges">
@@ -262,7 +71,6 @@
             <span class="big">Google Play</span>
           </span>
         </a>
-
         <a class="badge-store" href="#" aria-disabled="true" aria-label="Download on the App Store">
           <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
             <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM260.1 100c20.4-24.2 18.5-46.3 17.9-54.2-18 1-38.8 12.2-50.7 26.1-13.1 14.9-20.8 33.3-19.1 53.8 19.4 1.5 37.1-8.4 51.9-25.7z"/>
@@ -274,84 +82,268 @@
         </a>
       </div>
 
-      <div class="hero__note">Free to download · Pro from $2.50/month</div>
+      <div class="hero__note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Free to download · Pro from $2.50/month · No ads, ever
+      </div>
     </div>
 
-    <!-- Phone mockup -->
-    <div class="phone" aria-hidden="true">
-      <div class="phone__screen">
-        <p class="phone__date">Monday · May 18</p>
-        <h3 class="phone__title">Today</h3>
-        <div class="phone__list">
-          <div class="phone__task phone__task--done">
-            <span class="phone__check"></span>
-            <span class="phone__label">Reply to Sarah about the proposal</span>
-            <span class="phone__pill phone__pill--green">8:30</span>
+    <!-- Phone mockup + floating cards -->
+    <div class="hero__phone-wrap">
+      <div class="phone" aria-hidden="true">
+        <div class="phone__screen">
+          <p class="phone__date">Monday · May 18</p>
+          <h3 class="phone__title">Today</h3>
+          <div class="phone__list">
+            <div class="phone__task phone__task--done">
+              <span class="phone__check"></span>
+              <span class="phone__label">Reply to Sarah about the proposal</span>
+              <span class="phone__pill phone__pill--green">8:30</span>
+            </div>
+            <div class="phone__task">
+              <span class="phone__check"></span>
+              <span class="phone__label">Pick up groceries on the way home</span>
+              <span class="phone__pill">17:00</span>
+            </div>
+            <div class="phone__task">
+              <span class="phone__check"></span>
+              <span class="phone__label">Finish Q3 report draft</span>
+              <span class="phone__pill phone__pill--red">High</span>
+            </div>
+            <div class="phone__task">
+              <span class="phone__check"></span>
+              <span class="phone__label">Call Mom · weekly</span>
+              <span class="phone__pill">19:00</span>
+            </div>
+            <div class="phone__task">
+              <span class="phone__check"></span>
+              <span class="phone__label">Book flights to Lisbon</span>
+              <span class="phone__pill phone__pill--amber">Tue</span>
+            </div>
           </div>
-          <div class="phone__task">
-            <span class="phone__check"></span>
-            <span class="phone__label">Pick up groceries on the way home</span>
-            <span class="phone__pill">17:00</span>
-          </div>
-          <div class="phone__task">
-            <span class="phone__check"></span>
-            <span class="phone__label">Finish Q3 report draft</span>
-            <span class="phone__pill phone__pill--red">High</span>
-          </div>
-          <div class="phone__task">
-            <span class="phone__check"></span>
-            <span class="phone__label">Call Mom · weekly</span>
-            <span class="phone__pill">19:00</span>
-          </div>
-          <div class="phone__task">
-            <span class="phone__check"></span>
-            <span class="phone__label">Book flights for Lisbon</span>
-            <span class="phone__pill">Tue</span>
-          </div>
-          <div class="phone__task">
-            <span class="phone__check"></span>
-            <span class="phone__label">Renew gym membership</span>
+          <div class="phone__mic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2" width="6" height="12" rx="3"/>
+              <path d="M5 11a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+            </svg>
           </div>
         </div>
-        <div class="phone__mic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="2" width="6" height="12" rx="3"/>
-            <path d="M5 11a7 7 0 0 0 14 0"/>
-            <line x1="12" y1="18" x2="12" y2="22"/>
-          </svg>
+      </div>
+
+      <!-- Floating UI hints around the phone -->
+      <div class="float-card float-card--ai" aria-hidden="true">
+        <div class="float-card__icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+        </div>
+        <div>
+          <strong style="font-weight:700">AI Mode</strong><br/>
+          <span style="color:var(--text-soft); font-size: 12px;">5 tasks extracted</span>
+        </div>
+      </div>
+      <div class="float-card float-card--bell" aria-hidden="true">
+        <div class="float-card__icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm7-5v-5a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z"/></svg>
+        </div>
+        <div>
+          <strong style="font-weight:700">Reminder</strong><br/>
+          <span style="color:var(--text-soft); font-size: 12px;">Pick up groceries · in 30 min</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SPOTLIGHT 1 — Voice AI ============ -->
+<section class="section">
+  <div class="container">
+    <div class="spotlight">
+      <div class="spotlight__copy">
+        <span class="eyebrow"><span class="eyebrow__dot"></span>Speak. Done.</span>
+        <h3>Brain-dump your day. Get a perfect to-do list.</h3>
+        <p>
+          Tap the mic, ramble for two minutes about everything on your mind, and
+          Taskist's AI extracts each individual task with the right date,
+          priority, and list — even when you change your mind mid-sentence.
+        </p>
+        <ul>
+          <li>Multi-task voice extraction in one recording</li>
+          <li>Handles retractions: "scratch that, never mind"</li>
+          <li>Picks up dates, times, and recurring patterns</li>
+          <li>Works in 50+ accents and languages</li>
+        </ul>
+      </div>
+      <div class="spotlight__visual">
+        <div class="ui-card">
+          <div class="ui-card__head">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+            <strong>Voice transcript</strong>
+            <span class="ui-card__meta">0:12</span>
+          </div>
+          <p class="transcript-bubble">
+            Tomorrow I need to call the dentist around 10, pick up Maya from school
+            at 3, and finish the slides for the Monday review.
+          </p>
+          <div class="extracted-row">
+            <span class="extracted-row__check"></span>
+            <span class="extracted-row__label">Call the dentist</span>
+            <span class="extracted-row__tag">Tue 10:00</span>
+          </div>
+          <div class="extracted-row">
+            <span class="extracted-row__check"></span>
+            <span class="extracted-row__label">Pick up Maya from school</span>
+            <span class="extracted-row__tag">Tue 15:00</span>
+          </div>
+          <div class="extracted-row">
+            <span class="extracted-row__check"></span>
+            <span class="extracted-row__label">Finish slides for Monday review</span>
+            <span class="extracted-row__tag extracted-row__tag--red">High</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ FEATURES ============ -->
+<!-- ============ SPOTLIGHT 2 — Calendar sync ============ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="spotlight spotlight--reverse">
+      <div class="spotlight__copy">
+        <span class="eyebrow"><span class="eyebrow__dot"></span>Stay in sync</span>
+        <h3>Your tasks, on your real calendar.</h3>
+        <p>
+          Two-way sync with the native calendar on your phone. See your tasks
+          where your meetings live, get reminded on the right device, and never
+          miss a deadline because of an app switch.
+        </p>
+        <ul>
+          <li>Live two-way sync with the device calendar</li>
+          <li>Per-task reminder times — multiple per task</li>
+          <li>Recurring rules (daily, weekly, custom)</li>
+          <li>Home-screen widgets for today's list</li>
+        </ul>
+      </div>
+      <div class="spotlight__visual">
+        <div class="ui-card">
+          <div class="ui-card__head">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
+            <strong>This week</strong>
+            <span class="ui-card__meta">May</span>
+          </div>
+          <div class="cal" aria-hidden="true">
+            <div class="cal__day">M</div>
+            <div class="cal__day">T</div>
+            <div class="cal__day">W</div>
+            <div class="cal__day">T</div>
+            <div class="cal__day">F</div>
+            <div class="cal__day">S</div>
+            <div class="cal__day">S</div>
+
+            <div class="cal__day cal__day--has-task">18</div>
+            <div class="cal__day cal__day--today">19</div>
+            <div class="cal__day cal__day--has-task">20</div>
+            <div class="cal__day">21</div>
+            <div class="cal__day cal__day--has-task">22</div>
+            <div class="cal__day cal__day--has-task">23</div>
+            <div class="cal__day">24</div>
+          </div>
+          <div style="margin-top:18px;">
+            <div class="extracted-row">
+              <span class="extracted-row__check"></span>
+              <span class="extracted-row__label">Q3 review · 14:00</span>
+              <span class="extracted-row__tag">Today</span>
+            </div>
+            <div class="extracted-row">
+              <span class="extracted-row__check"></span>
+              <span class="extracted-row__label">Dentist · 10:00</span>
+              <span class="extracted-row__tag">Tue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPOTLIGHT 3 — Reminders ============ -->
+<section class="section">
+  <div class="container">
+    <div class="spotlight">
+      <div class="spotlight__copy">
+        <span class="eyebrow"><span class="eyebrow__dot"></span>Reminders, not nags</span>
+        <h3>Reminded at exactly the right moment.</h3>
+        <p>
+          Custom reminder times, exact-alarm precision, recurring schedules —
+          Taskist only buzzes when something genuinely matters. Set one
+          reminder, set five, snooze, or repeat. It bends around your life,
+          not the other way around.
+        </p>
+        <ul>
+          <li>Multiple custom times per task</li>
+          <li>Exact-alarm precision on Android 12+</li>
+          <li>Quiet hours and per-list mute</li>
+          <li>One-tap snooze / postpone</li>
+        </ul>
+      </div>
+      <div class="spotlight__visual">
+        <div class="ui-card">
+          <div class="ui-card__head">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm7-5v-5a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z"/></svg>
+            <strong>Reminders</strong>
+            <span class="ui-card__meta">Today</span>
+          </div>
+          <div class="notif" style="margin-bottom:10px;">
+            <div class="notif__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm7-5v-5a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z"/></svg>
+            </div>
+            <div class="notif__body">
+              <strong>Pick up groceries</strong>
+              <span>Reminder · 30 min before you leave the office</span>
+            </div>
+          </div>
+          <div class="notif">
+            <div class="notif__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="notif__body">
+              <strong>Q3 review starts in 15 min</strong>
+              <span>Wednesday · 14:00 · Conference Room B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES GRID (secondary) ============ -->
 <section id="features" class="section section--alt">
   <div class="section__head">
     <span class="eyebrow"><span class="eyebrow__dot"></span>What's inside</span>
-    <h2 class="section__title">Everything a to-do app should be.<br/>Nothing it shouldn't.</h2>
+    <h2 class="section__title">Everything a to-do app should be.</h2>
     <p class="section__subtitle">
-      Six things Taskist does brilliantly — and a thousand things it
-      deliberately doesn't. No ads, no analytics, no nonsense.
+      Each feature earns its place. No bloated menus, no random AI gimmicks, no
+      analytics watching your every tap.
     </p>
   </div>
 
-  <div class="grid-3">
-
+  <div class="features">
     <article class="feature">
       <div class="icon-tile icon-tile--blue" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11l3 3 8-8 1.5 1.5L12 17l-4.5-4.5L9 11zM4 6h10v2H4V6zm0 5h6v2H4v-2zm0 5h6v2H4v-2z"/></svg>
       </div>
       <h3>A to-do list that listens</h3>
-      <p>Lists, sub-tasks, tags, priorities, and recurring rules — all the structure you actually need, with none of the friction. Snooze, postpone, or knock things out in a tap.</p>
+      <p>Lists, sub-tasks, tags, priorities, and recurring rules — all the structure you actually need, with none of the friction.</p>
     </article>
 
     <article class="feature">
       <div class="icon-tile icon-tile--sky" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm9 6h-4v4h4v-4z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
       </div>
       <h3>Your calendar, in sync</h3>
-      <p>Two-way sync with your phone's native calendar. See your tasks where your meetings live, get reminded on the right device, and never miss a deadline because of a context-switch.</p>
+      <p>Two-way sync with your phone's native calendar. See your tasks where your meetings live.</p>
     </article>
 
     <article class="feature">
@@ -359,7 +351,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm7-5v-5a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z"/></svg>
       </div>
       <h3>Reminders that respect you</h3>
-      <p>Custom reminder times, exact-alarm precision, recurring schedules, and home-screen widgets — all so you only check the app when it actually has something for you.</p>
+      <p>Custom reminder times, exact-alarm precision, recurring schedules, home-screen widgets.</p>
     </article>
 
     <article class="feature">
@@ -367,7 +359,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
       </div>
       <h3>AI that pulls its weight</h3>
-      <p>Type or speak a brain-dump and AI turns it into clean separate tasks with the right dates, priorities, and lists. Auto-reschedule what's overdue. Get a one-paragraph briefing each morning.</p>
+      <p>Quick add, multi-task voice, auto-reschedule, daily briefing — opt-in, transparent, and always advisory.</p>
     </article>
 
     <article class="feature">
@@ -375,17 +367,16 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
       </div>
       <h3>Voice add, smart-split</h3>
-      <p>Tap the mic, ramble for two minutes about your day, and AI splits it into separate tasks — handling mind-changes ("scratch that") and accents. Even works in Text-to-Speech mode without AI.</p>
+      <p>Tap the mic, brain-dump your day, AI splits it into clean separate tasks — even with mind-changes.</p>
     </article>
 
     <article class="feature">
-      <div class="icon-tile icon-tile--rose" aria-hidden="true">
+      <div class="icon-tile icon-tile--royal" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zM6.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm3-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm3 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
       </div>
       <h3>Designed to feel calm</h3>
-      <p>Multiple Pro theme presets inspired by cities and landscapes. Real dark mode. Real accessibility. A focus mode that actually hides the rest of your phone. Crafted, not assembled.</p>
+      <p>Multiple premium themes, true minimal focus mode, polished dark mode, accessibility from day one.</p>
     </article>
-
   </div>
 </section>
 
@@ -417,14 +408,77 @@
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
       <div>
         <strong>Built by humans</strong>
-        <span>Real replies, real fixes, real roadmap. Reach us at <a href="mailto:support@taskist.pro">support@taskist.pro</a>.</span>
+        <span>Real replies, real fixes, real roadmap. <a href="mailto:support@taskist.pro">support@taskist.pro</a></span>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section section--alt">
+  <div class="section__head">
+    <span class="eyebrow"><span class="eyebrow__dot"></span>What people say</span>
+    <h2 class="section__title">Loved by people who plan everything &mdash; and people who don't.</h2>
+  </div>
+  <div class="testimonials">
+    <article class="testimonial">
+      <div class="testimonial__stars" aria-label="5 out of 5">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+      </div>
+      <p>"I tried every to-do app over the years. Taskist is the only one that gets out of my way. The voice add is genuinely magical."</p>
+      <div class="testimonial__person">
+        <div class="testimonial__avatar avatar--a">AK</div>
+        <div>
+          <div class="testimonial__name">Ari K.</div>
+          <div class="testimonial__role">Product designer</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testimonial">
+      <div class="testimonial__stars" aria-label="5 out of 5">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+      </div>
+      <p>"The calendar sync alone made me upgrade. I see my meetings and tasks in one place, and the reminders actually fire when I need them."</p>
+      <div class="testimonial__person">
+        <div class="testimonial__avatar avatar--b">MR</div>
+        <div>
+          <div class="testimonial__name">Maya R.</div>
+          <div class="testimonial__role">Operations lead</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testimonial">
+      <div class="testimonial__stars" aria-label="5 out of 5">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14 19 22 12 18 5 22 7 14 2 9.3 9 9 12 2"/></svg>
+      </div>
+      <p>"Bought the lifetime plan within a week. The minimal focus mode finally turned off my phone the way I wanted it to."</p>
+      <div class="testimonial__person">
+        <div class="testimonial__avatar avatar--c">JT</div>
+        <div>
+          <div class="testimonial__name">Jordan T.</div>
+          <div class="testimonial__role">Independent writer</div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
 <!-- ============ PRICING ============ -->
-<section id="pricing" class="section section--alt">
+<section id="pricing" class="section">
   <div class="section__head">
     <span class="eyebrow"><span class="eyebrow__dot"></span>Pricing</span>
     <h2 class="section__title">Free forever.<br/>Pro when you're ready.</h2>
@@ -435,7 +489,6 @@
   </div>
 
   <div class="pricing">
-
     <div class="plan">
       <h3>Free</h3>
       <div class="plan__price">
@@ -485,14 +538,47 @@
         <li>6,000 AI requests per month</li>
       </ul>
     </div>
-
   </div>
 </section>
 
-<!-- ============ CTA BANNER ============ -->
+<!-- ============ FAQ ============ -->
+<section id="faq" class="section section--alt">
+  <div class="section__head">
+    <span class="eyebrow"><span class="eyebrow__dot"></span>FAQ</span>
+    <h2 class="section__title">Quick answers.</h2>
+  </div>
+  <div class="faq">
+    <details>
+      <summary>Is Taskist really free?</summary>
+      <p>Yes. The core to-do, calendar sync, reminders, and focus timer are free forever, with no time limit. You get 50 AI requests per month on the free tier. Pro is optional, and only there if you fall in love with the AI features or premium themes.</p>
+    </details>
+    <details>
+      <summary>Do my tasks leave my device?</summary>
+      <p>No, not unless you sign in for cloud sync. Everything is stored locally in an OS-encrypted database. Cloud sync is strictly opt-in, and even then we only store what's needed to keep your devices in sync — no analytics, no behavioural data.</p>
+    </details>
+    <details>
+      <summary>How does AI Mode work?</summary>
+      <p>When you enable AI Mode, the text from your voice input is sent to Google Gemini, which extracts a list of tasks with dates, priorities, and tags. We send the minimum needed, never store the prompt on our side, and you can disable AI features in Settings at any time.</p>
+    </details>
+    <details>
+      <summary>Can I cancel anytime?</summary>
+      <p>Yes. Subscriptions are managed entirely through Google Play or the App Store. Cancel any time from your store account settings; you keep Pro access until the end of the current billing period.</p>
+    </details>
+    <details>
+      <summary>What's the difference between Lifetime and Annual?</summary>
+      <p>Lifetime is a one-time $119.99 purchase. You get Pro for as long as Taskist exists as a product, including all future updates we make available to Pro users. If you'll use Taskist for more than ~4 years, Lifetime wins.</p>
+    </details>
+    <details>
+      <summary>Will there be an iOS version?</summary>
+      <p>Yes. Android is launching first, with iOS following within a few weeks of the public launch. Your purchases will work on both — RevenueCat handles cross-platform entitlements when you sign in on the second device.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
 <section class="section">
   <div class="cta-banner">
-    <h2>Ready to plan less and do more?</h2>
+    <h2>Plan less. Do more. Today.</h2>
     <p>Free to download. No account required to get started.</p>
     <a class="btn btn--white" href="#download">
       Get Taskist
@@ -516,6 +602,7 @@
       <ul>
         <li><a href="#features">Features</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#download">Download</a></li>
       </ul>
     </div>
