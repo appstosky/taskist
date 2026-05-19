@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy Policy — Taskist</title>
-<meta name="description" content="How Taskist treats your data — short version: it stays on your device unless you opt in to sync." />
+<meta name="description" content="Taskist Privacy Policy. How we handle your data, your rights under GDPR / CCPA, and the sub-processors we use." />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -26,121 +26,316 @@
 <article class="article">
   <p class="article__eyebrow">Legal</p>
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: 18 May 2026</p>
+  <p class="updated">Last updated: 18 May 2026 · Effective: 18 May 2026</p>
 
-  <p>This policy describes what Taskist ("the app", "we") collects, how it uses
-  that information, and the choices you have. It applies to the Taskist mobile
-  app on Google Play and the App Store.</p>
+  <p>This Privacy Policy explains how Taskist ("<strong>Taskist</strong>", "<strong>we</strong>",
+  "<strong>us</strong>", "<strong>our</strong>") collects, uses, stores, shares, and protects
+  information when you use the Taskist mobile applications, websites, and related
+  services (collectively, the "<strong>Service</strong>"). It also describes the choices
+  available to you regarding our processing of your information and how you can
+  exercise your rights.</p>
+
+  <p>By downloading, installing, accessing, or using the Service, you acknowledge
+  that you have read and understood this Privacy Policy. If you do not agree with
+  any part of it, please do not use the Service.</p>
 
   <div class="callout">
     <p><strong>TL;DR.</strong> Your tasks, lists, notes, and habits stay on your device
-    unless you choose to sign in for cloud sync. Taskist has no ads, no analytics,
-    no third-party tracking. AI features and voice transcription are opt-in.</p>
+    unless you explicitly opt in to cloud sync. Taskist contains no advertising
+    networks, no third-party analytics, and no behavioural tracking. AI features
+    and voice transcription are opt-in and use vetted third-party services. We
+    share the minimum data needed to make a requested feature work, and never
+    sell your personal information.</p>
   </div>
 
-  <h2>What Taskist stores on your device</h2>
-  <p>When you use Taskist, the following stay locally on your phone in an
-  encrypted-at-rest SQLite database managed by the operating system:</p>
+  <h2>1. Scope and definitions</h2>
+  <p>This Policy applies to all personal information processed by Taskist in the
+  course of providing the Service, regardless of the format of that information
+  or the device or platform on which the Service is used.</p>
+  <p>"<strong>Personal information</strong>" means any information relating to an
+  identified or identifiable natural person. "<strong>Processing</strong>" means any
+  operation performed on personal information, whether or not automated.
+  "<strong>You</strong>" or "<strong>user</strong>" means any individual who downloads, installs,
+  or uses the Service.</p>
+  <p>For the purposes of the European Union General Data Protection Regulation
+  ("<strong>GDPR</strong>") and the UK GDPR, the Taskist operator is the
+  "<strong>data controller</strong>" of personal information processed through the
+  Service. For the purposes of the California Consumer Privacy Act and the
+  California Privacy Rights Act ("<strong>CCPA/CPRA</strong>"), Taskist is the
+  "<strong>business</strong>" that determines the purposes and means of processing.</p>
+
+  <h2>2. Categories of information we process</h2>
+
+  <h3>2.1 Information stored on your device</h3>
+  <p>The following categories are stored locally on your device in an
+  application-private SQLite database protected by the operating system's
+  app-sandboxing mechanisms. We do not have remote access to this database
+  unless you opt in to cloud sync (see Section 2.2).</p>
   <ul>
-    <li>Tasks, lists, notes, subtasks, tags, attachments</li>
-    <li>Habits, streaks, and completion history</li>
-    <li>Focus / Pomodoro session preferences</li>
-    <li>App settings (theme, language, notification preferences, etc.)</li>
-    <li>Onboarding state, AI usage counters</li>
-  </ul>
-  <p>You can export this data at any time via <strong>Settings → Integrations &amp;
-  Import → Export</strong>, or wipe it by uninstalling the app or clearing app
-  storage in Android Settings.</p>
-
-  <h2>What we send to third parties — and why</h2>
-  <p>Taskist contacts the internet <strong>only when you opt in</strong> to a feature that
-  needs it.</p>
-
-  <h3>Cloud sync (optional, off by default)</h3>
-  <p>If you sign in via <strong>Settings → Sign In</strong>, Taskist syncs your tasks to
-  Supabase servers so you can access them across devices. We store only the
-  task content you create — no contacts, no location, no analytics. You can
-  sign out and delete your cloud data from inside the app at any time.</p>
-
-  <h3>AI features (optional, off by default)</h3>
-  <p>If you enable AI features in <strong>Settings → AI Assistant</strong>, Taskist sends
-  short pieces of text (e.g. a phrase you typed in Quick Add, a list of your
-  overdue tasks for re-scheduling) to the Google Gemini API. We send the
-  minimum context needed to fulfil your request and never include credentials,
-  contacts, or unrelated data. Google's terms apply to data sent to Gemini.</p>
-
-  <h3>Voice add-task (optional)</h3>
-  <p>When you tap the microphone icon, Android's system speech recognizer
-  captures audio on-device and sends it to Google's speech-to-text service for
-  transcription. Taskist does not record, store, or upload raw audio itself —
-  only the text Google returns to us. The microphone permission is requested
-  only when you use this feature.</p>
-  <p>If you turn on "AI Mode" in the voice screen, the resulting transcript is
-  then sent to Gemini for multi-task extraction. A consent dialog asks for
-  your agreement the first time.</p>
-
-  <h3>Subscriptions</h3>
-  <p>In-app subscriptions and the lifetime plan are processed by Google Play
-  Billing. Purchase receipts are validated through RevenueCat, which gives us
-  your entitlement status (Pro / Free) but no payment details. We never see or
-  store your credit card.</p>
-
-  <h3>Calendar integration (optional)</h3>
-  <p>If you enable "Local Calendar Notifications" in
-  <strong>Settings → Sounds &amp; Notifications</strong>, Taskist will read from and write
-  to your device's local calendar. No calendar data leaves the device.</p>
-
-  <h2>What Taskist does NOT do</h2>
-  <ul>
-    <li>We do <strong>not</strong> sell your data.</li>
-    <li>We do <strong>not</strong> include advertising or ad SDKs.</li>
-    <li>We do <strong>not</strong> track which screens you visit, how long you use the app, or which features you use.</li>
-    <li>We do <strong>not</strong> access your contacts, location, photos, or other apps' data.</li>
-    <li>We do <strong>not</strong> scan your tasks for keywords, ads, or behavioural targeting.</li>
+    <li>Tasks, subtasks, lists, notes, tags, attachments, and recurring-task rules you create</li>
+    <li>Habits, streak history, and completion records</li>
+    <li>Focus / Pomodoro session preferences and saved notes</li>
+    <li>Application settings, including theme, language, notification, and accessibility preferences</li>
+    <li>Onboarding completion flags and feature-introduction state</li>
+    <li>Aggregated counters of AI requests made in the current billing month</li>
   </ul>
 
-  <h2>Permissions we request and why</h2>
+  <h3>2.2 Information you choose to send to our cloud sync</h3>
+  <p>If you opt in to cloud sync by signing in to a Taskist account through the
+  in-app Sign In screen, the following will be transmitted to and stored on our
+  authentication and database infrastructure (currently provided by Supabase —
+  see Section 5):</p>
+  <ul>
+    <li>Email address used to create your account</li>
+    <li>Hashed authentication credential (we never receive your plaintext password)</li>
+    <li>Encrypted refresh and access tokens</li>
+    <li>The same task, list, habit, and settings content described in 2.1, so it can be synchronised across your devices</li>
+    <li>A device-generated user identifier used solely to associate your data with your account</li>
+  </ul>
+
+  <h3>2.3 Information sent to AI features (opt-in)</h3>
+  <p>When you enable AI features and use them, we transmit the minimum text
+  necessary for the requested operation to our AI provider (currently Google
+  Gemini — see Section 5). Examples include the natural-language phrase you
+  typed for AI Quick Add, the transcript captured during AI Mode voice input,
+  or a structured list of your overdue tasks for the auto-reschedule feature.
+  We do not include credentials, contacts, calendar entries, or unrelated data.</p>
+
+  <h3>2.4 Voice-input information</h3>
+  <p>When you tap the microphone control to add a task by voice, the operating
+  system's built-in speech recogniser captures audio on your device. Depending
+  on your device settings, this audio is either processed on-device or
+  transmitted to your operating-system provider (e.g. Google or Apple) for
+  speech-to-text conversion. Taskist receives only the resulting text
+  transcription; we do not record, store, or transmit raw audio ourselves.</p>
+
+  <h3>2.5 Subscription and purchase information</h3>
+  <p>If you subscribe to Taskist Pro or buy the Lifetime plan, your payment is
+  processed entirely by Google Play, Apple App Store, or another store
+  platform on which you obtained the Service. Subscription receipts are
+  validated through RevenueCat (see Section 5), which provides us with your
+  entitlement status (Pro / Free), product identifier, and an anonymous
+  subscriber identifier. We do not receive your full name, billing address,
+  or any payment-card information.</p>
+
+  <h3>2.6 Technical information</h3>
+  <p>To deliver basic functionality, the Service may collect or generate
+  limited technical information, including: device model, operating-system
+  version, application version, anonymous installation identifier, and
+  diagnostic information when a feature fails (for example, an internal
+  error code returned when an AI request cannot be parsed). We do not use
+  this information for advertising or cross-app tracking.</p>
+
+  <h3>2.7 Information we do <em>not</em> collect</h3>
+  <ul>
+    <li>We do not collect your real-time location, GPS coordinates, or location history.</li>
+    <li>We do not access your contacts, photos, microphone (outside the voice add-task feature), camera, or files.</li>
+    <li>We do not deploy advertising identifiers, IDFA, AAID, or similar tracking identifiers.</li>
+    <li>We do not use behavioural analytics, heatmaps, session replay, or marketing pixels.</li>
+    <li>We do not sell, rent, or share personal information for cross-context behavioural advertising.</li>
+  </ul>
+
+  <h2>3. How we use information (purposes of processing)</h2>
+  <p>We process the categories above for the following purposes:</p>
+  <ul>
+    <li><strong>Service delivery</strong> — to provide the core task-management, focus, habit, and AI features you request.</li>
+    <li><strong>Synchronisation</strong> — to keep your data consistent across your devices when you opt in to cloud sync.</li>
+    <li><strong>Authentication and account security</strong> — to verify your identity, prevent unauthorised access, and protect against fraud and abuse.</li>
+    <li><strong>Subscription management</strong> — to determine whether you are entitled to Pro features and to honour purchases.</li>
+    <li><strong>Customer support</strong> — to respond when you contact us with questions or issues.</li>
+    <li><strong>Service improvement</strong> — to diagnose crashes and bugs, in aggregated and de-identified form where possible.</li>
+    <li><strong>Legal compliance</strong> — to comply with applicable law, respond to lawful legal requests, and enforce our Terms.</li>
+  </ul>
+
+  <h2>4. Legal bases for processing (GDPR / UK GDPR)</h2>
+  <p>If the GDPR or UK GDPR applies to you, we rely on the following legal bases
+  under Article 6(1):</p>
+  <ul>
+    <li><strong>Performance of a contract</strong> (Art. 6(1)(b)) — to provide the Service you signed up for and process subscriptions you bought.</li>
+    <li><strong>Legitimate interests</strong> (Art. 6(1)(f)) — to keep the Service secure, prevent abuse, and improve reliability, balanced against your fundamental rights.</li>
+    <li><strong>Consent</strong> (Art. 6(1)(a)) — for opt-in features such as AI processing, cloud sync, and local calendar integration. You can withdraw consent at any time without affecting prior processing.</li>
+    <li><strong>Legal obligation</strong> (Art. 6(1)(c)) — to comply with tax, accounting, and other legal requirements.</li>
+  </ul>
+  <p>We do not engage in automated decision-making that produces legal or
+  similarly significant effects on you, within the meaning of Article 22 GDPR.
+  AI features in Taskist are advisory only — you remain in control of which
+  suggestions to accept or reject.</p>
+
+  <h2>5. Sub-processors and third-party services</h2>
+  <p>To deliver the Service we rely on the third-party processors listed below.
+  Each is engaged under a contractual data-protection agreement and processes
+  data only on our documented instructions, except where required by law.
+  Their privacy policies, linked here for transparency, govern their own
+  practices.</p>
   <table>
     <thead>
-      <tr><th>Permission</th><th>Used for</th></tr>
+      <tr><th>Provider</th><th>Purpose</th><th>Data shared</th><th>Privacy policy</th></tr>
     </thead>
     <tbody>
-      <tr><td>Internet</td><td>Cloud sync, AI features, subscription validation</td></tr>
-      <tr><td>Microphone</td><td>Voice add-task (only when you tap the mic)</td></tr>
-      <tr><td>Notifications</td><td>Reminders for tasks and habits</td></tr>
-      <tr><td>Calendar</td><td>Optional sync of task reminders to your local calendar</td></tr>
-      <tr><td>Exact alarm / Wake</td><td>Precise reminder delivery on Android 12+</td></tr>
-      <tr><td>Foreground service / Overlay</td><td>Quick Ball floating shortcut (off by default)</td></tr>
-      <tr><td>Receive boot completed</td><td>Re-scheduling reminders after device restart</td></tr>
-      <tr><td>Vibrate</td><td>Optional vibration on notification</td></tr>
+      <tr>
+        <td>Google LLC (Gemini API)</td>
+        <td>AI quick-add parsing, multi-task voice extraction, auto-reschedule, daily briefing</td>
+        <td>Short user-supplied text (no account information)</td>
+        <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></td>
+      </tr>
+      <tr>
+        <td>Google LLC / Apple Inc. (System speech recogniser)</td>
+        <td>Voice-to-text transcription for the voice add-task feature</td>
+        <td>Audio captured by the device microphone during a recording session</td>
+        <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> · <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a></td>
+      </tr>
+      <tr>
+        <td>Google Play Billing / Apple App Store</td>
+        <td>Processing subscription and one-time purchases</td>
+        <td>Purchase tokens, receipt data; no payment-card data reaches us</td>
+        <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> · <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a></td>
+      </tr>
+      <tr>
+        <td>RevenueCat, Inc.</td>
+        <td>Subscription receipt validation and entitlement management</td>
+        <td>Purchase tokens, product identifiers, anonymous subscriber ID</td>
+        <td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></td>
+      </tr>
+      <tr>
+        <td>Supabase, Inc. (optional)</td>
+        <td>Authentication and encrypted cloud sync for opted-in users</td>
+        <td>Email, hashed credential, task content, settings</td>
+        <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></td>
+      </tr>
+      <tr>
+        <td>GitHub, Inc. (Pages)</td>
+        <td>Hosting of this website and legal pages</td>
+        <td>Standard server logs (IP address, user agent) for the website only</td>
+        <td><a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub</a></td>
+      </tr>
     </tbody>
   </table>
+  <p>We may add or change sub-processors over time. When a change materially
+  affects the categories of data processed or the geographic location of
+  processing, we will update this list and, where required, give reasonable
+  notice in advance.</p>
 
-  <h2>Children</h2>
-  <p>Taskist is a productivity tool for general audiences. It is not directed at
-  children under 13 and we do not knowingly collect data from them.</p>
+  <h2>6. International data transfers</h2>
+  <p>Some of our sub-processors may store or process personal information in
+  countries outside your country of residence, including the United States.
+  Where such transfers from the European Economic Area, the United Kingdom,
+  or Switzerland are required, we rely on appropriate safeguards under
+  applicable data-protection law — including the European Commission's
+  Standard Contractual Clauses, supplementary measures where required, and
+  certifications such as the EU–U.S. Data Privacy Framework where the
+  recipient participates in it.</p>
 
-  <h2>Your rights</h2>
+  <h2>7. Data retention</h2>
+  <p>We retain personal information only for as long as necessary to provide
+  the Service or to fulfil the purposes set out in this Policy, including
+  to comply with legal, accounting, or reporting obligations.</p>
   <ul>
-    <li><strong>Access:</strong> All your local data is on your device — open the app to view it.</li>
-    <li><strong>Export:</strong> Settings → Integrations &amp; Import.</li>
-    <li><strong>Delete (local):</strong> Uninstall the app, or clear app data in Android Settings.</li>
-    <li><strong>Delete (cloud):</strong> If you're signed in for cloud sync, Settings → Sign In → Delete account.</li>
-    <li><strong>Disable AI:</strong> Settings → AI Assistant → toggle off.</li>
-    <li><strong>EU / California residents:</strong> You have additional rights to access, correct, and delete personal data under GDPR / CCPA. Contact us at the email below to exercise them.</li>
+    <li><strong>Local data on your device</strong> — retained until you uninstall the Service, clear app data in the OS settings, or use the in-app delete features.</li>
+    <li><strong>Cloud-synced data</strong> — retained as long as your account is active. On account deletion, your synced data is permanently removed from our active systems within 30 days, and from backups within 90 days.</li>
+    <li><strong>Subscription records</strong> — retained for the period required by tax and accounting law in our jurisdiction (typically up to 7 years), excluding personal identifiers where possible.</li>
+    <li><strong>Support correspondence</strong> — retained for up to 24 months to resolve recurring issues, then anonymised or deleted.</li>
+    <li><strong>AI request content</strong> — not retained by us after the response is returned to your device. Our AI provider may retain transient logs in accordance with its own terms.</li>
   </ul>
 
-  <h2>Changes to this policy</h2>
-  <p>If we materially change what we collect or how we use it, we will update
-  this page and bump the "Last updated" date. Continued use after a change
-  means you accept the new policy.</p>
+  <h2>8. Your rights</h2>
 
-  <h2>Contact</h2>
-  <p>Questions, concerns, or data requests:</p>
+  <h3>8.1 General rights</h3>
+  <p>Regardless of jurisdiction, you have the following options at any time:</p>
+  <ul>
+    <li><strong>Access</strong> your local data — open the Service on your device.</li>
+    <li><strong>Export</strong> your data — Settings → Integrations &amp; Import → Export (CSV / JSON).</li>
+    <li><strong>Delete</strong> your local data — uninstall the Service or clear its storage in your operating system's settings.</li>
+    <li><strong>Delete</strong> your cloud-synced data — sign in, then use the in-app "Delete account" function (Settings → Sign In).</li>
+    <li><strong>Disable AI features</strong> — Settings → AI Assistant → toggle off.</li>
+    <li><strong>Revoke microphone access</strong> — through your operating system's permission settings.</li>
+  </ul>
+
+  <h3>8.2 Rights of European Economic Area, United Kingdom, and Swiss residents</h3>
+  <p>If the GDPR or UK GDPR applies to you, you have the right to:</p>
+  <ul>
+    <li>Request access to and a copy of your personal information (Art. 15)</li>
+    <li>Request correction of inaccurate or incomplete data (Art. 16)</li>
+    <li>Request erasure of your personal information ("right to be forgotten", Art. 17)</li>
+    <li>Restrict our processing of your data (Art. 18)</li>
+    <li>Object to processing based on legitimate interests (Art. 21)</li>
+    <li>Receive your data in a structured, commonly used, machine-readable format and transmit it to another controller (Art. 20)</li>
+    <li>Withdraw consent at any time, without affecting the lawfulness of prior processing</li>
+    <li>Lodge a complaint with a supervisory authority in the EU/UK/Swiss member state where you live or work, or where the alleged infringement occurred</li>
+  </ul>
+
+  <h3>8.3 Rights of California residents (CCPA / CPRA)</h3>
+  <p>If you reside in California, you have the right to:</p>
+  <ul>
+    <li>Know what personal information we collect, the categories of sources, the purposes for collection, and the categories of third parties with which it is shared</li>
+    <li>Request a copy of the specific pieces of personal information we have collected about you in the prior 12 months</li>
+    <li>Request deletion of your personal information</li>
+    <li>Request correction of inaccurate personal information</li>
+    <li>Limit the use and disclosure of "sensitive personal information"</li>
+    <li>Not receive discriminatory treatment for exercising any of these rights</li>
+  </ul>
+  <p>Taskist does <strong>not</strong> sell or share personal information for cross-context
+  behavioural advertising within the meaning of the CCPA/CPRA. There is no
+  "Do Not Sell or Share My Personal Information" link because there is no such
+  practice to opt out of.</p>
+
+  <h3>8.4 How to exercise your rights</h3>
+  <p>To exercise any of the rights above, contact us at the email in Section 13.
+  We will respond within the time required by applicable law (typically 30 days
+  for GDPR, 45 days for CCPA, extendable in complex cases). We may need to
+  verify your identity before fulfilling certain requests; this is to protect
+  your data from unauthorised disclosure. You may also authorise an agent to
+  act on your behalf in accordance with applicable law.</p>
+
+  <h2>9. Children's privacy</h2>
+  <p>The Service is intended for general audiences and is not directed at
+  children under 13 (or under the equivalent age of digital consent in your
+  country: 16 in the EEA, except where lower national thresholds apply). We do
+  not knowingly collect personal information from children. If you are a
+  parent or guardian and believe that a child has provided personal
+  information to us, please contact us and we will take reasonable steps to
+  delete it.</p>
+
+  <h2>10. Security</h2>
+  <p>We implement technical and organisational measures designed to protect
+  personal information from accidental or unlawful destruction, loss,
+  alteration, unauthorised disclosure, or access. These include:</p>
+  <ul>
+    <li>Transport encryption (TLS) for all data in transit between the Service and our sub-processors</li>
+    <li>App-sandboxed storage for local data, protected by the operating system's encryption-at-rest where available</li>
+    <li>Hashed credentials for authentication, with token-based session management</li>
+    <li>Access controls limiting administrative access to back-end systems</li>
+    <li>Periodic dependency updates and security patches</li>
+  </ul>
+  <p>No method of electronic transmission or storage is 100% secure. We cannot
+  guarantee absolute security, but we will notify affected users and the
+  competent supervisory authority of a personal-data breach without undue
+  delay where required by applicable law.</p>
+
+  <h2>11. Cookies and similar technologies</h2>
+  <p>The Taskist mobile applications do not use cookies. Our website (the page
+  you are reading) uses only the strictly necessary technical mechanisms
+  provided by our static-hosting platform; no advertising or analytics
+  cookies are set by us.</p>
+
+  <h2>12. Changes to this Privacy Policy</h2>
+  <p>We may revise this Privacy Policy from time to time. The "Last updated"
+  date at the top of this page indicates when revisions were last made. If we
+  make material changes, we will provide additional notice — for example, by
+  in-app notice or an email to the address associated with your account
+  (where applicable) — before the change takes effect. Your continued use of
+  the Service after the effective date of a revised Policy constitutes your
+  acceptance of the revised Policy.</p>
+
+  <h2>13. Contact</h2>
+  <p>Privacy inquiries, data-subject requests, and questions about this Policy:</p>
   <ul>
     <li>Email: <a href="mailto:support@taskist.pro">support@taskist.pro</a></li>
-    <li>App: Settings → Help &amp; Support</li>
+    <li>In-app: Settings → Help &amp; Support</li>
   </ul>
+  <p>If you are located in the European Economic Area, the United Kingdom, or
+  Switzerland and we cannot resolve your concern, you have the right to lodge
+  a complaint with the data-protection supervisory authority in your country
+  of residence.</p>
 </article>
 
 <footer class="site-footer">
