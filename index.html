@@ -3,12 +3,209 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Taskist — The task planner that actually works</title>
-<meta name="description" content="Calm, fast, AI-assisted task planner for people who want their day to actually go to plan. Voice add, focus timer, habits, and more." />
+<title>Taskist — The to-do app that thinks with you</title>
+<meta name="description" content="A fast, AI-powered to-do list, calendar, and reminder app. Speak a sentence, get organised. Built to feel calm and look beautiful." />
 <meta property="og:title" content="Taskist" />
-<meta property="og:description" content="The task planner that actually works." />
+<meta property="og:description" content="The to-do app that thinks with you." />
 <meta property="og:type" content="website" />
 <link rel="stylesheet" href="style.css" />
+<style>
+  /* ── Inline page-specific styles ────────────────────────────── */
+
+  /* Hero split — copy on the left, phone mockup on the right. */
+  .hero { text-align: left; padding-top: clamp(56px, 9vw, 96px); }
+  .hero__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .hero__copy h1 { margin-left: 0; margin-right: 0; max-width: 620px; }
+  .hero__copy .lead { margin-left: 0; margin-right: 0; max-width: 540px; }
+  .hero__copy .cta-row { justify-content: flex-start; }
+  .hero__copy .store-badges { justify-content: flex-start; }
+  @media (max-width: 880px) {
+    .hero { text-align: center; }
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__copy h1, .hero__copy .lead { margin-left: auto; margin-right: auto; }
+    .hero__copy .cta-row,
+    .hero__copy .store-badges { justify-content: center; }
+    .phone { margin: 0 auto; }
+  }
+
+  /* ── Phone mockup (pure CSS / SVG) ───────────────────────────── */
+  .phone {
+    width: min(360px, 100%);
+    aspect-ratio: 360 / 720;
+    background: var(--bg-card);
+    border-radius: 44px;
+    box-shadow:
+      0 40px 80px -20px rgba(15, 23, 42, 0.20),
+      0 16px 40px -8px rgba(37, 99, 235, 0.18),
+      inset 0 0 0 1.5px var(--border);
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+    transform: rotate(-2deg);
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .phone:hover { transform: rotate(0deg) translateY(-4px); }
+  .phone::before {
+    /* Dynamic Island / notch */
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 92px;
+    height: 24px;
+    background: #0B1024;
+    border-radius: 20px;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+  .phone__screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    padding: 48px 18px 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone__date {
+    color: var(--text-soft);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin: 0 4px 4px;
+  }
+  .phone__title {
+    color: var(--text-strong);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 4px 14px;
+  }
+  .phone__list {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .phone__task {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    font-size: 13.5px;
+    color: var(--text);
+    box-shadow: var(--shadow-xs);
+  }
+  .phone__check {
+    width: 18px; height: 18px;
+    border-radius: 6px;
+    border: 1.8px solid var(--blue-300);
+    flex: 0 0 18px;
+    position: relative;
+  }
+  .phone__task--done .phone__check {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .phone__task--done .phone__check::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 12px 12px;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 12px 12px;
+  }
+  .phone__task--done .phone__label { text-decoration: line-through; color: var(--text-soft); }
+  .phone__pill {
+    margin-left: auto;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    background: var(--blue-50);
+    color: var(--blue-700);
+  }
+  .phone__pill--red { background: #FEE2E2; color: #B91C1C; }
+  .phone__pill--green { background: #DCFCE7; color: #166534; }
+  @media (prefers-color-scheme: dark) {
+    .phone__pill { background: rgba(96,165,250,0.15); color: #93C5FD; }
+    .phone__pill--red { background: rgba(248,113,113,0.15); color: #FCA5A5; }
+    .phone__pill--green { background: rgba(74,222,128,0.15); color: #86EFAC; }
+  }
+  .phone__mic {
+    position: absolute;
+    right: 22px; bottom: 22px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+    display: grid; place-items: center;
+    box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.55);
+  }
+  .phone__mic svg { width: 24px; height: 24px; color: white; }
+
+  /* ── App store badges ────────────────────────────────────────── */
+  .store-badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .badge-store {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    height: 56px;
+    padding: 0 22px 0 18px;
+    background: #0B1024;
+    color: white;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-align: left;
+  }
+  .badge-store:hover {
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+  .badge-store svg { width: 26px; height: 26px; flex: 0 0 26px; }
+  .badge-store__text { display: flex; flex-direction: column; line-height: 1.1; }
+  .badge-store__text .small { font-size: 10.5px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.85; text-transform: uppercase; }
+  .badge-store__text .big { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-top: 1px; }
+  .badge-store[aria-disabled="true"] { cursor: default; }
+
+  /* ── Flat icon tiles for features ────────────────────────────── */
+  .icon-tile {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .icon-tile svg { width: 24px; height: 24px; color: white; }
+  .icon-tile--blue   { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+  .icon-tile--indigo { background: linear-gradient(135deg, #6366F1, #4338CA); }
+  .icon-tile--sky    { background: linear-gradient(135deg, #38BDF8, #0284C7); }
+  .icon-tile--violet { background: linear-gradient(135deg, #8B5CF6, #6D28D9); }
+  .icon-tile--cyan   { background: linear-gradient(135deg, #22D3EE, #0E7490); }
+  .icon-tile--rose   { background: linear-gradient(135deg, #6B7BFF, #2563EB); }
+
+  /* Section helper */
+  .grid-3 {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+</style>
 </head>
 <body>
 
@@ -19,68 +216,329 @@
       <span>Taskist</span>
     </a>
     <nav class="site-nav">
+      <a class="nav-hide-mobile" href="#features">Features</a>
+      <a class="nav-hide-mobile" href="#pricing">Pricing</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-      <a href="mailto:support@taskist.pro">Contact</a>
+      <a class="nav-cta" href="#download">Get the app</a>
     </nav>
   </div>
 </header>
 
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero__eyebrow">Coming soon to Google Play</div>
-  <h1>The task planner <span class="accent">that actually works</span>.</h1>
-  <p class="lead">
-    Calm by default, fast when you need it. Voice add, AI multi-task extraction,
-    Pomodoro focus, habits, and a calendar — all in one place, all built to keep
-    you moving instead of organising.
-  </p>
-  <a class="hero__cta" href="mailto:support@taskist.pro?subject=Notify%20me%20when%20Taskist%20launches">
-    Notify me at launch
-    <span aria-hidden="true">→</span>
-  </a>
-  <div class="hero__note">Free to download · Pro unlocks AI features and themes</div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow">
+        <span class="eyebrow__dot"></span>
+        The to-do app that thinks with you
+      </span>
+      <h1>Your day, <span class="accent">finally on track</span>.</h1>
+      <p class="lead">
+        Speak a sentence, get a structured to-do list. Sync it with your
+        calendar, get reminded at the right moment, and let AI quietly handle
+        the boring parts — all in one beautifully calm app.
+      </p>
+
+      <div id="download" class="store-badges">
+        <a class="badge-store" href="#" aria-disabled="true" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 60 65" aria-hidden="true">
+            <defs>
+              <linearGradient id="gp1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#00C3FF"/><stop offset="1" stop-color="#005FCB"/>
+              </linearGradient>
+              <linearGradient id="gp2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FFD000"/><stop offset="1" stop-color="#FF9300"/>
+              </linearGradient>
+              <linearGradient id="gp3" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FF3A44"/><stop offset="1" stop-color="#C31162"/>
+              </linearGradient>
+              <linearGradient id="gp4" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#00DC73"/><stop offset="1" stop-color="#00A058"/>
+              </linearGradient>
+            </defs>
+            <path d="M3 2 L3 63 L33 32.5 Z" fill="url(#gp4)"/>
+            <path d="M3 2 L33 32.5 L57 18 Z" fill="url(#gp1)"/>
+            <path d="M3 63 L33 32.5 L57 47 Z" fill="url(#gp3)"/>
+            <path d="M33 32.5 L57 18 L57 47 Z" fill="url(#gp2)"/>
+          </svg>
+          <span class="badge-store__text">
+            <span class="small">Get it on</span>
+            <span class="big">Google Play</span>
+          </span>
+        </a>
+
+        <a class="badge-store" href="#" aria-disabled="true" aria-label="Download on the App Store">
+          <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
+            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM260.1 100c20.4-24.2 18.5-46.3 17.9-54.2-18 1-38.8 12.2-50.7 26.1-13.1 14.9-20.8 33.3-19.1 53.8 19.4 1.5 37.1-8.4 51.9-25.7z"/>
+          </svg>
+          <span class="badge-store__text">
+            <span class="small">Download on the</span>
+            <span class="big">App Store</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="hero__note">Free to download · Pro from $2.50/month</div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="phone" aria-hidden="true">
+      <div class="phone__screen">
+        <p class="phone__date">Monday · May 18</p>
+        <h3 class="phone__title">Today</h3>
+        <div class="phone__list">
+          <div class="phone__task phone__task--done">
+            <span class="phone__check"></span>
+            <span class="phone__label">Reply to Sarah about the proposal</span>
+            <span class="phone__pill phone__pill--green">8:30</span>
+          </div>
+          <div class="phone__task">
+            <span class="phone__check"></span>
+            <span class="phone__label">Pick up groceries on the way home</span>
+            <span class="phone__pill">17:00</span>
+          </div>
+          <div class="phone__task">
+            <span class="phone__check"></span>
+            <span class="phone__label">Finish Q3 report draft</span>
+            <span class="phone__pill phone__pill--red">High</span>
+          </div>
+          <div class="phone__task">
+            <span class="phone__check"></span>
+            <span class="phone__label">Call Mom · weekly</span>
+            <span class="phone__pill">19:00</span>
+          </div>
+          <div class="phone__task">
+            <span class="phone__check"></span>
+            <span class="phone__label">Book flights for Lisbon</span>
+            <span class="phone__pill">Tue</span>
+          </div>
+          <div class="phone__task">
+            <span class="phone__check"></span>
+            <span class="phone__label">Renew gym membership</span>
+          </div>
+        </div>
+        <div class="phone__mic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="12" rx="3"/>
+            <path d="M5 11a7 7 0 0 0 14 0"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="features">
-  <div class="feature">
-    <div class="feature__icon">🎙️</div>
-    <h3>Voice add, smart-split</h3>
-    <p>Tap the mic, speak a brain dump, and AI splits it into clean separate tasks — with dates, priorities, and the right list.</p>
+<!-- ============ FEATURES ============ -->
+<section id="features" class="section section--alt">
+  <div class="section__head">
+    <span class="eyebrow"><span class="eyebrow__dot"></span>What's inside</span>
+    <h2 class="section__title">Everything a to-do app should be.<br/>Nothing it shouldn't.</h2>
+    <p class="section__subtitle">
+      Six things Taskist does brilliantly — and a thousand things it
+      deliberately doesn't. No ads, no analytics, no nonsense.
+    </p>
   </div>
-  <div class="feature">
-    <div class="feature__icon">⏱️</div>
-    <h3>Focus that respects you</h3>
-    <p>A calm Pomodoro timer with ambient sounds, a real minimal mode, and notes you can jot without breaking flow.</p>
-  </div>
-  <div class="feature">
-    <div class="feature__icon">🔁</div>
-    <h3>Habits that stick</h3>
-    <p>Build streaks without the guilt-trip. Skips count, recovery days exist, and your data stays on your device.</p>
-  </div>
-  <div class="feature">
-    <div class="feature__icon">🗓️</div>
-    <h3>Calendar that talks back</h3>
-    <p>Sync your tasks with your phone's calendar so reminders fire even when Taskist isn't open.</p>
-  </div>
-  <div class="feature">
-    <div class="feature__icon">🔒</div>
-    <h3>Yours, not ours</h3>
-    <p>No ads. No tracking. Local-first storage. Optional cloud sync only when you sign in.</p>
-  </div>
-  <div class="feature">
-    <div class="feature__icon">✨</div>
-    <h3>Beautifully themed</h3>
-    <p>Multiple Pro theme presets inspired by cities and landscapes — light and dark out of the box.</p>
+
+  <div class="grid-3">
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--blue" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11l3 3 8-8 1.5 1.5L12 17l-4.5-4.5L9 11zM4 6h10v2H4V6zm0 5h6v2H4v-2zm0 5h6v2H4v-2z"/></svg>
+      </div>
+      <h3>A to-do list that listens</h3>
+      <p>Lists, sub-tasks, tags, priorities, and recurring rules — all the structure you actually need, with none of the friction. Snooze, postpone, or knock things out in a tap.</p>
+    </article>
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--sky" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm9 6h-4v4h4v-4z"/></svg>
+      </div>
+      <h3>Your calendar, in sync</h3>
+      <p>Two-way sync with your phone's native calendar. See your tasks where your meetings live, get reminded on the right device, and never miss a deadline because of a context-switch.</p>
+    </article>
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--indigo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm7-5v-5a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z"/></svg>
+      </div>
+      <h3>Reminders that respect you</h3>
+      <p>Custom reminder times, exact-alarm precision, recurring schedules, and home-screen widgets — all so you only check the app when it actually has something for you.</p>
+    </article>
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--violet" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+      </div>
+      <h3>AI that pulls its weight</h3>
+      <p>Type or speak a brain-dump and AI turns it into clean separate tasks with the right dates, priorities, and lists. Auto-reschedule what's overdue. Get a one-paragraph briefing each morning.</p>
+    </article>
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--cyan" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+      </div>
+      <h3>Voice add, smart-split</h3>
+      <p>Tap the mic, ramble for two minutes about your day, and AI splits it into separate tasks — handling mind-changes ("scratch that") and accents. Even works in Text-to-Speech mode without AI.</p>
+    </article>
+
+    <article class="feature">
+      <div class="icon-tile icon-tile--rose" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zM6.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm3-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm3 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+      </div>
+      <h3>Designed to feel calm</h3>
+      <p>Multiple Pro theme presets inspired by cities and landscapes. Real dark mode. Real accessibility. A focus mode that actually hides the rest of your phone. Crafted, not assembled.</p>
+    </article>
+
   </div>
 </section>
 
+<!-- ============ TRUST STRIP ============ -->
+<section class="section">
+  <div class="trust">
+    <div class="trust__item">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6a5 5 0 1 0-10 0v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6a3 3 0 0 1 6 0v2H9V6zm9 14H6V10h12v10z"/></svg>
+      <div>
+        <strong>Local-first storage</strong>
+        <span>Your tasks live on your device. Cloud sync is strictly opt-in.</span>
+      </div>
+    </div>
+    <div class="trust__item">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1a11 11 0 1 0 11 11A11.01 11.01 0 0 0 12 1zm5.66 16.24l-1.42 1.42L12 14.42l-4.24 4.24-1.42-1.42L10.58 13 6.34 8.76l1.42-1.42L12 11.58l4.24-4.24 1.42 1.42L13.42 13l4.24 4.24z"/></svg>
+      <div>
+        <strong>Zero tracking</strong>
+        <span>No analytics SDKs. No ad pixels. No behavioural profiling. Ever.</span>
+      </div>
+    </div>
+    <div class="trust__item">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <div>
+        <strong>Cancel anytime</strong>
+        <span>Subscriptions managed in your app store. No lock-in, no hidden fees.</span>
+      </div>
+    </div>
+    <div class="trust__item">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+      <div>
+        <strong>Built by humans</strong>
+        <span>Real replies, real fixes, real roadmap. Reach us at <a href="mailto:support@taskist.pro">support@taskist.pro</a>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="section section--alt">
+  <div class="section__head">
+    <span class="eyebrow"><span class="eyebrow__dot"></span>Pricing</span>
+    <h2 class="section__title">Free forever.<br/>Pro when you're ready.</h2>
+    <p class="section__subtitle">
+      Use Taskist for free, with no time limit. Upgrade to Pro for the AI
+      features, premium themes, and higher monthly caps.
+    </p>
+  </div>
+
+  <div class="pricing">
+
+    <div class="plan">
+      <h3>Free</h3>
+      <div class="plan__price">
+        <span class="num">$0</span>
+        <span class="per">/ forever</span>
+      </div>
+      <p class="plan__hint">Everything to plan a normal day.</p>
+      <ul>
+        <li>Tasks, lists, subtasks, tags</li>
+        <li>Smart reminders &amp; recurring tasks</li>
+        <li>Calendar sync</li>
+        <li>Focus timer</li>
+        <li>Light + dark mode</li>
+        <li>50 AI requests per month</li>
+      </ul>
+    </div>
+
+    <div class="plan plan--feature">
+      <span class="plan__tag">Best value</span>
+      <h3>Pro · Annual</h3>
+      <div class="plan__price">
+        <span class="num">$29.99</span>
+        <span class="per">/ year</span>
+      </div>
+      <p class="plan__hint">Just $2.50/month. 3-day free trial.</p>
+      <ul>
+        <li>Everything in Free</li>
+        <li>Unlimited AI quick-add &amp; voice</li>
+        <li>AI auto-reschedule &amp; daily briefing</li>
+        <li>Eisenhower priority matrix</li>
+        <li>All premium themes &amp; widgets</li>
+        <li>6,000 AI requests per month</li>
+      </ul>
+    </div>
+
+    <div class="plan">
+      <h3>Pro · Lifetime</h3>
+      <div class="plan__price">
+        <span class="num">$119.99</span>
+        <span class="per">/ once</span>
+      </div>
+      <p class="plan__hint">Pay once. Pro for as long as Taskist exists.</p>
+      <ul>
+        <li>Everything in Pro</li>
+        <li>All future updates included</li>
+        <li>No subscription, ever</li>
+        <li>6,000 AI requests per month</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="section">
+  <div class="cta-banner">
+    <h2>Ready to plan less and do more?</h2>
+    <p>Free to download. No account required to get started.</p>
+    <a class="btn btn--white" href="#download">
+      Get Taskist
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
-  <div class="site-footer__links">
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="mailto:support@taskist.pro">Contact</a>
+  <div class="site-footer__inner">
+    <div class="site-footer__col site-footer__brand">
+      <a class="logo" href="/">
+        <span class="logo__mark">T</span>
+        <span>Taskist</span>
+      </a>
+      <p>The to-do app that thinks with you. Calm by default, fast when you need it.</p>
+    </div>
+    <div class="site-footer__col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="mailto:support@taskist.pro">support@taskist.pro</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="site-footer__copy">© 2026 Taskist. All rights reserved.</div>
+  <div class="site-footer__bottom">© 2026 Taskist. All rights reserved.</div>
 </footer>
 
 </body>
